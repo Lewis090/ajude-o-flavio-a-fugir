@@ -46,6 +46,7 @@ canvas { display: block; width: 100%; height: auto; aspect-ratio: 480 / 760; bac
   background: linear-gradient(#071022e8, #071022f5);
 }
 
+.menu-panel[hidden] { display: none; }
 .menu-panel h2, .message-panel h2 { margin: 0; font-size: 2rem; color: #ffd23f; }
 .menu-panel p, .message-panel p { margin: 0; line-height: 1.45; color: #dce8f8; }
 .eyebrow { color: #7dff9b !important; text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; font-weight: 700; }
