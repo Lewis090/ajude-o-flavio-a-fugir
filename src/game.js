@@ -6,7 +6,7 @@ export class Game {
   reset(difficultyKey) { this.difficulty = DIFFICULTIES[difficultyKey]; this.phaseIndex = 0; this.phase = PHASES[0]; this.distance = 0; this.phaseDistance = 0; this.lives = this.difficulty.lives; this.time = 0; this.shield = 0; this.hitTimer = 0; this.spawnTimer = 0; this.itemTimer = 4; this.player = createPlayer(); this.clouds = Array.from({ length: 10 }, createCloud); this.hazards = []; this.items = []; }
   start(difficultyKey) { this.reset(difficultyKey); this.onEvent('playing', this); }
   update(dt) {
-    this.time += dt; const progress = this.phaseDistance / this.phaseLength; const speed = this.difficulty.speed + progress * 145; this.distance += speed * dt; this.phaseDistance += speed * dt; this.movePlayer(dt); this.moveClouds(dt, speed);
+    this.time += dt; const progress = this.phaseDistance / this.phaseLength; const speed = this.difficulty.speed + progress * 60; this.distance += speed * dt; this.phaseDistance += speed * dt; this.movePlayer(dt); this.moveClouds(dt, speed);
     this.spawnTimer -= dt; if (this.spawnTimer <= 0 && this.hazards.length < this.difficulty.maxEnemies) { this.spawnTimer = Math.max(.3, this.difficulty.spawnInterval - progress * .25); this.hazards.push(createHazard(progress, this.difficulty.enemyRatio)); }
     this.itemTimer -= dt; if (this.itemTimer <= 0) { this.itemTimer = this.difficulty.itemInterval + Math.random() * 4; this.items.push(createItem()); }
     this.hazards.forEach((hazard) => { hazard.y += (speed * .45 + hazard.vy) * dt; if (hazard.chaser && hazard.y < this.player.y - 30) hazard.x += Math.sign(this.player.x - hazard.x) * Math.min(Math.abs(this.player.x - hazard.x), 120 * dt); if (hazard.type === 'bird') hazard.x += Math.sin(this.time * 4 + hazard.phase) * 35 * dt; });

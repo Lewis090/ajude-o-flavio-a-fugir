@@ -24,9 +24,28 @@ export class Renderer {
     if (game.phaseIndex === 1 && progress > .82) { ctx.fillStyle = '#f2dfa6'; ctx.fillRect(0, CANVAS.height - progress * 55, CANVAS.width, 60); }
   }
 
-  drawCloud(c) { const { ctx } = this; ctx.fillStyle = '#ffffff99'; ctx.beginPath(); ctx.ellipse(c.x, c.y, 50 * c.size, 18 * c.size, 0, 0, Math.PI * 2); ctx.ellipse(c.x + 25 * c.size, c.y - 8 * c.size, 30 * c.size, 16 * c.size, 0, 0, Math.PI * 2); ctx.fill(); }
-  drawItem(item) { const { ctx } = this; ctx.fillStyle = item.type === 'fuel' ? '#7dff9b' : '#ffd23f'; ctx.beginPath(); ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#071022'; ctx.font = 'bold 16px system-ui'; ctx.textAlign = 'center'; ctx.fillText(item.type === 'fuel' ? '⚡' : '★', item.x, item.y + 6); }
-  drawHazard(hazard) { if (hazard.type === 'bird') { const { ctx } = this; ctx.strokeStyle = '#34201a'; ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(hazard.x - 10, hazard.y, 12, Math.PI, 0); ctx.arc(hazard.x + 10, hazard.y, 12, Math.PI, 0); ctx.stroke(); return; } this.drawPlane(hazard.x, hazard.y, hazard.chaser ? '#0a2a6b' : '#143c8c', 1); }
-  drawPlane(x, y, color, direction) { const { ctx } = this; ctx.save(); ctx.translate(x, y); if (direction > 0) ctx.scale(1, -1); ctx.fillStyle = color; ctx.beginPath(); ctx.moveTo(0, -36); ctx.lineTo(7, -10); ctx.lineTo(44, 8); ctx.lineTo(44, 18); ctx.lineTo(7, 10); ctx.lineTo(5, 28); ctx.lineTo(18, 36); ctx.lineTo(18, 42); ctx.lineTo(0, 37); ctx.lineTo(-18, 42); ctx.lineTo(-18, 36); ctx.lineTo(-5, 28); ctx.lineTo(-7, 10); ctx.lineTo(-44, 18); ctx.lineTo(-44, 8); ctx.lineTo(-7, -10); ctx.closePath(); ctx.fill(); ctx.strokeStyle = '#0006'; ctx.stroke(); ctx.fillStyle = '#b4e6ff'; ctx.beginPath(); ctx.ellipse(0, -14, 3.5, 7, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+  drawCloud(c) {
+    const { ctx } = this;
+    ctx.save(); ctx.translate(c.x, c.y);
+    ctx.fillStyle = '#00000018'; ctx.beginPath(); ctx.ellipse(5, 10, 52 * c.size, 16 * c.size, 0, 0, Math.PI * 2); ctx.fill();
+    const gradient = ctx.createLinearGradient(0, -20, 0, 18); gradient.addColorStop(0, '#fff'); gradient.addColorStop(1, '#b8cce0');
+    ctx.fillStyle = gradient; ctx.beginPath(); ctx.ellipse(0, 0, 50 * c.size, 18 * c.size, 0, 0, Math.PI * 2); ctx.ellipse(25 * c.size, -8 * c.size, 30 * c.size, 16 * c.size, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+  }
+  drawItem(item) {
+    const { ctx } = this; const color = item.type === 'fuel' ? '#7dff9b' : '#ffd23f';
+    ctx.save(); ctx.translate(item.x, item.y); ctx.shadowColor = color; ctx.shadowBlur = 16; const gradient = ctx.createRadialGradient(-5, -6, 2, 0, 0, item.radius); gradient.addColorStop(0, '#fff'); gradient.addColorStop(.3, color); gradient.addColorStop(1, '#a66b00'); ctx.fillStyle = gradient; ctx.beginPath(); ctx.arc(0, 0, item.radius, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0; ctx.fillStyle = '#071022'; ctx.font = 'bold 16px system-ui'; ctx.textAlign = 'center'; ctx.fillText(item.type === 'fuel' ? '⚡' : '★', 0, 6); ctx.restore();
+  }
+  drawHazard(hazard) { if (hazard.type === 'bird') { this.drawBird(hazard); return; } this.drawPlane(hazard.x, hazard.y, hazard.chaser ? '#162d72' : '#244d9a', 1); }
+  drawBird(bird) {
+    const { ctx } = this; ctx.save(); ctx.translate(bird.x, bird.y); ctx.fillStyle = '#00000030'; ctx.beginPath(); ctx.ellipse(2, 10, 25, 7, 0, 0, Math.PI * 2); ctx.fill();
+    const gradient = ctx.createLinearGradient(0, -14, 0, 14); gradient.addColorStop(0, '#f4a261'); gradient.addColorStop(1, '#9d3d28'); ctx.fillStyle = gradient; ctx.beginPath(); ctx.ellipse(0, 0, 13, 10, 0, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#d86b36'; ctx.beginPath(); ctx.ellipse(-15, -3, 15, 6, -.35, 0, Math.PI * 2); ctx.ellipse(15, -3, 15, 6, .35, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(6, -5, 4, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#172033'; ctx.beginPath(); ctx.arc(7, -5, 2, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+  }
+  drawPlane(x, y, color, direction) {
+    const { ctx } = this; ctx.save(); ctx.translate(x, y); if (direction > 0) ctx.scale(1, -1);
+    ctx.fillStyle = '#00000035'; ctx.beginPath(); ctx.ellipse(4, 32, 38, 9, 0, 0, Math.PI * 2); ctx.fill();
+    const gradient = ctx.createLinearGradient(-35, -40, 35, 42); gradient.addColorStop(0, '#f7fbff'); gradient.addColorStop(.2, color); gradient.addColorStop(.72, color); gradient.addColorStop(1, '#071b4d'); ctx.fillStyle = gradient;
+    ctx.beginPath(); ctx.moveTo(0, -38); ctx.quadraticCurveTo(8, -20, 10, -10); ctx.lineTo(45, 9); ctx.quadraticCurveTo(48, 14, 43, 19); ctx.lineTo(8, 11); ctx.lineTo(6, 28); ctx.lineTo(19, 37); ctx.lineTo(18, 43); ctx.lineTo(0, 38); ctx.lineTo(-18, 43); ctx.lineTo(-19, 37); ctx.lineTo(-6, 28); ctx.lineTo(-8, 11); ctx.lineTo(-43, 19); ctx.quadraticCurveTo(-48, 14, -45, 9); ctx.lineTo(-10, -10); ctx.quadraticCurveTo(-8, -20, 0, -38); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = '#06132f99'; ctx.lineWidth = 2; ctx.stroke(); ctx.fillStyle = '#bcecff'; ctx.beginPath(); ctx.ellipse(0, -14, 4, 8, 0, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#fff8'; ctx.fillRect(-28, 12, 20, 3); ctx.fillRect(8, 12, 20, 3); ctx.restore();
+  }
   drawHud(game, progress) { const { ctx } = this; ctx.fillStyle = '#00000075'; ctx.fillRect(0, 0, CANVAS.width, 62); ctx.fillStyle = '#fff'; ctx.font = 'bold 13px system-ui'; ctx.textAlign = 'left'; ctx.fillText(`FASE ${game.phaseIndex + 1}/2 · ${game.phase.destination}`, 12, 19); ctx.font = '11px system-ui'; ctx.fillText(`${game.difficulty.name} · ${game.phase.landmarks[Math.min(1, Math.floor(progress * 2))]}`, 12, 39); ctx.textAlign = 'right'; ctx.font = 'bold 16px system-ui'; ctx.fillText('❤'.repeat(Math.max(0, game.lives)), CANVAS.width - 12, 20); ctx.fillStyle = '#ffffff55'; ctx.fillRect(12, 48, CANVAS.width - 24, 6); ctx.fillStyle = '#ffd23f'; ctx.fillRect(12, 48, (CANVAS.width - 24) * progress, 6); }
 }

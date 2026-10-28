@@ -13,9 +13,11 @@ Ao terminar a primeira fase, uma tela de transição apresenta a próxima etapa 
 
 ## 🎚️ Dificuldades
 
-- **Fácil:** 5 vidas, menos obstáculos e velocidade menor.
-- **Normal:** 3 vidas e desafio equilibrado.
-- **Difícil:** 2 vidas, mais obstáculos e velocidade maior.
+- **Fácil:** 3 vidas, menos obstáculos e velocidade menor.
+- **Normal:** 2 vidas e desafio equilibrado.
+- **Difícil:** 1 vida, mais obstáculos e velocidade maior.
+
+As fases foram alongadas para dar mais tempo de pilotagem e observar os obstáculos. A velocidade aumenta suavemente dentro de cada fase, em vez de acelerar de forma brusca.
 
 ## 🎮 Como jogar
 
