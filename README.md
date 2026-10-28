@@ -25,6 +25,7 @@ As fases agora têm progressão longa, com 15.000 unidades cada. O cenário muda
 - **Celular:** arraste o dedo na tela.
 - **Pausar:** toque no botão `Pausar` ou pressione `P` no computador. O jogo pausa automaticamente quando você troca de aba ou deixa a janela.
 - Pegue a estrela ★ para ganhar 5 segundos de escudo.
+- Enquanto o escudo estiver ativo, uma barra amarela no HUD mostra o tempo restante.
 - Pegue ⚡ para avançar um pouco mais na fase.
 - Colete 🛂 para ganhar 500 pontos.
 - No Normal e no Difícil, os aviões atiram somente enquanto estão à frente do jogador.

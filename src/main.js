@@ -41,6 +41,12 @@ function showRanking() {
   menu.hidden = true;
   message.innerHTML = `<p class="eyebrow">Hall da fama</p><h2>🏆 Ranking</h2><p>As 10 melhores pontuações deste navegador.</p>${rankTable()}<button data-action="close-ranking">Voltar ao menu</button>`;
   message.hidden = false;
+  message.querySelector('[data-action="close-ranking"]').addEventListener('click', returnToMenu);
+}
+
+function returnToMenu() {
+  message.hidden = true;
+  menu.hidden = false;
 }
 
 function resultMarkup(event, currentGame) {
