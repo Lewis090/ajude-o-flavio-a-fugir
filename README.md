@@ -23,6 +23,7 @@ As fases foram alongadas para dar mais tempo de pilotagem e observar os obstácu
 
 - **Computador:** setas do teclado ou WASD para pilotar. Espaço ou Enter para começar.
 - **Celular:** arraste o dedo na tela.
+- **Pausar:** toque no botão `Pausar` ou pressione `P` no computador. O jogo pausa automaticamente quando você troca de aba ou deixa a janela.
 - Pegue a estrela ★ para ganhar 5 segundos de escudo.
 - Pegue ⚡ para avançar um pouco mais na fase.
 - Chegue ao fim das duas barras de progresso para vencer.

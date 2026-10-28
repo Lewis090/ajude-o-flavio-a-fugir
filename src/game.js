@@ -3,8 +3,10 @@ import { collides, createCloud, createHazard, createItem, createPlayer } from '.
 
 export class Game {
   constructor(input, renderer, onEvent) { this.input = input; this.renderer = renderer; this.onEvent = onEvent; this.phaseLength = PHASE_LENGTH; this.reset('normal'); }
-  reset(difficultyKey) { this.difficulty = DIFFICULTIES[difficultyKey]; this.phaseIndex = 0; this.phase = PHASES[0]; this.distance = 0; this.phaseDistance = 0; this.lives = this.difficulty.lives; this.time = 0; this.shield = 0; this.hitTimer = 0; this.spawnTimer = 0; this.itemTimer = 4; this.player = createPlayer(); this.clouds = Array.from({ length: 10 }, createCloud); this.hazards = []; this.items = []; }
+  reset(difficultyKey) { this.difficulty = DIFFICULTIES[difficultyKey]; this.phaseIndex = 0; this.phase = PHASES[0]; this.distance = 0; this.phaseDistance = 0; this.lives = this.difficulty.lives; this.time = 0; this.shield = 0; this.hitTimer = 0; this.spawnTimer = 0; this.itemTimer = 4; this.paused = false; this.player = createPlayer(); this.clouds = Array.from({ length: 10 }, createCloud); this.hazards = []; this.items = []; }
   start(difficultyKey) { this.reset(difficultyKey); this.onEvent('playing', this); }
+  togglePause() { this.paused = !this.paused; this.onEvent(this.paused ? 'paused' : 'resumed', this); }
+  pause() { if (!this.paused) { this.paused = true; this.onEvent('paused', this); } }
   update(dt) {
     this.time += dt; const progress = this.phaseDistance / this.phaseLength; const speed = this.difficulty.speed + progress * 60; this.distance += speed * dt; this.phaseDistance += speed * dt; this.movePlayer(dt); this.moveClouds(dt, speed);
     this.spawnTimer -= dt; if (this.spawnTimer <= 0 && this.hazards.length < this.difficulty.maxEnemies) { this.spawnTimer = Math.max(.3, this.difficulty.spawnInterval - progress * .25); this.hazards.push(createHazard(progress, this.difficulty.enemyRatio)); }

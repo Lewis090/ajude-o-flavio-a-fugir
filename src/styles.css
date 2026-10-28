@@ -35,6 +35,22 @@ body {
 
 canvas { display: block; width: 100%; height: auto; aspect-ratio: 480 / 760; background: #000; touch-action: none; }
 
+.pause-button {
+  position: absolute;
+  top: 72px;
+  right: 12px;
+  z-index: 2;
+  border: 1px solid #ffffff99;
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: #fff;
+  background: #071022cc;
+  cursor: pointer;
+  font: 700 .75rem system-ui, sans-serif;
+}
+.pause-button:hover, .pause-button:focus-visible { background: #294d7acc; outline: 2px solid #ffd23f; outline-offset: 2px; }
+.pause-button[hidden] { display: none; }
+
 .menu-panel, .message-panel {
   position: absolute;
   inset: 0;

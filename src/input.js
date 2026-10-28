@@ -1,8 +1,13 @@
 export class Input {
-  constructor(canvas) {
+  constructor(canvas, onPause) {
     this.keys = new Set();
     this.target = null;
     window.addEventListener('keydown', (event) => {
+      if (event.key.toLowerCase() === 'p') {
+        event.preventDefault();
+        onPause();
+        return;
+      }
       this.keys.add(event.key.toLowerCase());
       if ([' ', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(event.key.toLowerCase())) event.preventDefault();
     });
