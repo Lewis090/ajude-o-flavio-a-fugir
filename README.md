@@ -26,7 +26,13 @@ As fases agora têm progressão longa, com 15.000 unidades cada. O cenário muda
 - **Pausar:** toque no botão `Pausar` ou pressione `P` no computador. O jogo pausa automaticamente quando você troca de aba ou deixa a janela.
 - Pegue a estrela ★ para ganhar 5 segundos de escudo.
 - Pegue ⚡ para avançar um pouco mais na fase.
+- Colete 🛂 para ganhar 500 pontos.
+- No Normal e no Difícil, os aviões atiram somente enquanto estão à frente do jogador.
 - Chegue ao fim das duas barras de progresso para vencer.
+
+## 🏆 Score e ranking
+
+O score combina distância percorrida, passaportes coletados e bônus de conclusão de fase. Ao vencer ou sofrer game over, o jogador informa três letras e salva sua pontuação entre as cinco melhores do navegador. O ranking usa `localStorage`, portanto é individual para cada navegador e dispositivo.
 
 ## 📁 Estrutura
 

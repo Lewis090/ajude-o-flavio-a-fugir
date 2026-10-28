@@ -84,3 +84,10 @@ canvas { display: block; width: 100%; height: auto; aspect-ratio: 480 / 760; bac
 .difficulty-list .recommended { border-color: #ffd23f; }
 .message-panel[hidden] { display: none; }
 .message-panel button { border: 0; border-radius: 8px; padding: 12px 18px; background: #ffd23f; color: #111827; cursor: pointer; font-weight: 800; }
+.rank-form { display: grid; gap: 8px; justify-items: center; }
+.rank-form label { color: #b6c8df; font-size: .82rem; }
+.rank-form input { width: 92px; border: 2px solid #62b5ff; border-radius: 8px; padding: 8px; color: #fff; background: #0d1d38; font: 800 1.25rem system-ui; letter-spacing: .22em; text-align: center; text-transform: uppercase; }
+.rank-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.rank-table th, .rank-table td { padding: 3px 6px; border-bottom: 1px solid #ffffff22; }
+.rank-table th { color: #ffd23f; text-align: left; }
+.rank-table th:last-child, .rank-table td:last-child { text-align: right; }
