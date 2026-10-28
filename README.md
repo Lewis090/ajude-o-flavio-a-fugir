@@ -13,11 +13,11 @@ Ao terminar a primeira fase, uma tela de transição apresenta a próxima etapa 
 
 ## 🎚️ Dificuldades
 
-- **Fácil:** 3 vidas, menos obstáculos e velocidade menor.
-- **Normal:** 2 vidas e desafio equilibrado.
-- **Difícil:** 1 vida, mais obstáculos e velocidade maior.
+- **Fácil:** 3 vidas, obstáculos mais frequentes e velocidade moderada.
+- **Normal:** 2 vidas, mais obstáculos e aviões que disparam contra o jogador.
+- **Difícil:** 1 vida, tráfego intenso, velocidade maior e tiros mais frequentes.
 
-As fases foram alongadas para dar mais tempo de pilotagem e observar os obstáculos. A velocidade aumenta suavemente dentro de cada fase, em vez de acelerar de forma brusca.
+As fases agora têm progressão longa, com 15.000 unidades cada. O cenário muda gradualmente do dia para a noite durante cada fase, com estrelas no trecho noturno.
 
 ## 🎮 Como jogar
 

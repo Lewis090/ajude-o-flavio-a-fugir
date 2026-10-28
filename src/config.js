@@ -1,10 +1,10 @@
 export const CANVAS = { width: 480, height: 760 };
-export const PHASE_LENGTH = 9000;
+export const PHASE_LENGTH = 15000;
 
 export const DIFFICULTIES = {
-  easy: { name: 'Fácil', lives: 3, speed: 155, spawnInterval: 1.45, itemInterval: 8, enemyRatio: .18, maxEnemies: 4 },
-  normal: { name: 'Normal', lives: 2, speed: 180, spawnInterval: 1.2, itemInterval: 10, enemyRatio: .3, maxEnemies: 5 },
-  hard: { name: 'Difícil', lives: 1, speed: 205, spawnInterval: .95, itemInterval: 12, enemyRatio: .46, maxEnemies: 6 }
+  easy: { name: 'Fácil', lives: 3, speed: 165, spawnInterval: 1.1, itemInterval: 9, enemyRatio: .28, maxEnemies: 5, canShoot: false },
+  normal: { name: 'Normal', lives: 2, speed: 190, spawnInterval: .82, itemInterval: 11, enemyRatio: .5, maxEnemies: 7, canShoot: true, shotInterval: 1.65 },
+  hard: { name: 'Difícil', lives: 1, speed: 215, spawnInterval: .62, itemInterval: 13, enemyRatio: .68, maxEnemies: 9, canShoot: true, shotInterval: .95 }
 };
 
 export const PHASES = [

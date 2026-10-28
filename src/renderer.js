@@ -4,14 +4,16 @@ export class Renderer {
   constructor(ctx) { this.ctx = ctx; }
 
   draw(game) {
-    const { ctx } = this; const phase = game.phase; const progress = game.phaseDistance / game.phaseLength; const offset = (game.distance * .5) % 120;
-    ctx.fillStyle = phase.colors[0]; ctx.fillRect(0, 0, CANVAS.width, CANVAS.height);
-    ctx.fillStyle = phase.colors[1]; for (let y = -120 + offset; y < CANVAS.height; y += 120) ctx.fillRect(0, y, CANVAS.width, 60);
+    const { ctx } = this; const phase = game.phase; const progress = game.phaseDistance / game.phaseLength; const offset = (game.distance * .5) % 120; const night = Math.max(0, Math.min(1, (progress - .32) / .48));
+    const sky = ctx.createLinearGradient(0, 0, 0, CANVAS.height); sky.addColorStop(0, this.mixColor(phase.colors[0], '#101b46', night)); sky.addColorStop(1, this.mixColor(phase.colors[1], '#26305f', night)); ctx.fillStyle = sky; ctx.fillRect(0, 0, CANVAS.width, CANVAS.height);
+    ctx.fillStyle = this.mixColor(phase.colors[1], '#18254d', night); for (let y = -120 + offset; y < CANVAS.height; y += 120) ctx.fillRect(0, y, CANVAS.width, 60);
+    if (night > .15) this.drawStars(night);
     if (game.phaseIndex === 1) { ctx.fillStyle = '#ffffff22'; for (let y = -60 + offset; y < CANVAS.height; y += 60) ctx.fillRect(0, y, CANVAS.width, 3); }
     this.drawLandmarks(game, progress, offset);
     game.clouds.forEach((cloud) => this.drawCloud(cloud));
     game.items.forEach((item) => this.drawItem(item));
     game.hazards.forEach((hazard) => this.drawHazard(hazard));
+    game.projectiles.forEach((projectile) => this.drawProjectile(projectile));
     if (!(game.hitTimer > 0 && Math.floor(game.time * 14) % 2)) this.drawPlane(game.player.x, game.player.y, '#e8e8e8', -1);
     if (game.shield > 0) { ctx.strokeStyle = `rgba(255,210,63,${.5 + .3 * Math.sin(game.time * 12)})`; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(game.player.x, game.player.y, 50, 0, Math.PI * 2); ctx.stroke(); }
     this.drawHud(game, progress);
@@ -24,6 +26,9 @@ export class Renderer {
     for (let x = -30; x < CANVAS.width + 80; x += 95) { const height = 30 + ((x * 7) % 35); ctx.beginPath(); ctx.moveTo(x, 105 + offset % 80); ctx.lineTo(x + 45, 105 - height + offset % 80); ctx.lineTo(x + 95, 105 + offset % 80); ctx.fill(); }
     if (game.phaseIndex === 1 && progress > .82) { ctx.fillStyle = '#f2dfa6'; ctx.fillRect(0, CANVAS.height - progress * 55, CANVAS.width, 60); }
   }
+  mixColor(day, night, amount) { const parse = (hex) => hex.match(/\w\w/g).map((part) => parseInt(part, 16)); const a = parse(day); const b = parse(night); return `rgb(${a.map((value, index) => Math.round(value + (b[index] - value) * amount)).join(',')})`; }
+  drawStars(opacity) { const { ctx } = this; ctx.fillStyle = `rgba(255,255,220,${opacity * .8})`; for (let index = 0; index < 34; index += 1) { const x = (index * 83) % CANVAS.width; const y = 72 + ((index * 47) % 300); ctx.fillRect(x, y, index % 3 === 0 ? 3 : 2, index % 3 === 0 ? 3 : 2); } }
+  drawProjectile(projectile) { const { ctx } = this; ctx.save(); ctx.translate(projectile.x, projectile.y); ctx.shadowColor = '#ff5b35'; ctx.shadowBlur = 12; ctx.fillStyle = '#ff793f'; ctx.beginPath(); ctx.arc(0, 0, projectile.radius, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#fff2a8'; ctx.beginPath(); ctx.arc(-2, -2, 3, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
 
   drawCloud(c) {
     const { ctx } = this;
