@@ -6,6 +6,7 @@ const canvas = document.querySelector('#game-canvas');
 const menu = document.querySelector('#game-menu');
 const message = document.querySelector('#game-message');
 const pauseButton = document.querySelector('#pause-button');
+const rankingButton = document.querySelector('#ranking-button');
 let game;
 const input = new Input(canvas, () => game?.togglePause());
 game = new Game(input, new Renderer(canvas.getContext('2d')), showEvent);
@@ -13,6 +14,7 @@ let last = performance.now();
 
 document.querySelectorAll('[data-difficulty]').forEach((button) => button.addEventListener('click', () => game.start(button.dataset.difficulty)));
 pauseButton.addEventListener('click', () => game.togglePause());
+rankingButton.addEventListener('click', showRanking);
 document.addEventListener('visibilitychange', () => { if (document.hidden) game.pause(); });
 window.addEventListener('blur', () => game.pause());
 
@@ -24,6 +26,7 @@ function showEvent(event, currentGame) {
     : resultMarkup(event, currentGame);
   message.innerHTML = content; message.hidden = false; pauseButton.hidden = true;
   message.querySelector('[data-action="continue"]')?.addEventListener('click', () => { message.hidden = true; });
+  message.querySelector('[data-action="close-ranking"]')?.addEventListener('click', () => { message.hidden = true; menu.hidden = false; });
   message.querySelector('[data-action="restart"]')?.addEventListener('click', () => { message.hidden = true; menu.hidden = false; });
   message.querySelector('[data-rank-form]')?.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -32,6 +35,12 @@ function showEvent(event, currentGame) {
     message.querySelector('[data-rank-form]').replaceWith(document.createElement('p'));
     message.querySelector('.rank-table').outerHTML = rankTable();
   });
+}
+
+function showRanking() {
+  menu.hidden = true;
+  message.innerHTML = `<p class="eyebrow">Hall da fama</p><h2>🏆 Ranking</h2><p>As 10 melhores pontuações deste navegador.</p>${rankTable()}<button data-action="close-ranking">Voltar ao menu</button>`;
+  message.hidden = false;
 }
 
 function resultMarkup(event, currentGame) {
@@ -43,12 +52,12 @@ function getRanks() {
   try { const ranks = JSON.parse(localStorage.getItem('flavio-rank') || '[]'); return Array.isArray(ranks) ? ranks : []; } catch (error) { console.warn('Não foi possível ler o ranking local.', error); return []; }
 }
 function saveRank(initials, score) {
-  const ranks = [...getRanks(), { initials, score, date: Date.now() }].sort((a, b) => b.score - a.score).slice(0, 5);
+  const ranks = [...getRanks(), { initials, score, date: Date.now() }].sort((a, b) => b.score - a.score).slice(0, 10);
   try { localStorage.setItem('flavio-rank', JSON.stringify(ranks)); } catch (error) { console.warn('Não foi possível salvar o ranking local.', error); }
 }
 function rankTable() {
   const rows = getRanks().map((rank, index) => `<tr><td>${index + 1}</td><td>${rank.initials}</td><td>${rank.score.toLocaleString('pt-BR')}</td></tr>`).join('');
-  return `<table class="rank-table"><thead><tr><th>#</th><th>Nome</th><th>Score</th></tr></thead><tbody>${rows || '<tr><td colspan="3">Ainda não há pontuações</td></tr>'}</tbody></table>`;
+  return `<table class="rank-table"><caption>🏆 TOP 10</caption><thead><tr><th>#</th><th>Nome</th><th>Score</th></tr></thead><tbody>${rows || '<tr><td colspan="3">Ainda não há pontuações</td></tr>'}</tbody></table>`;
 }
 
 function updatePauseButton(currentGame) { pauseButton.textContent = currentGame.paused ? '▶ Continuar' : '⏸ Pausar'; pauseButton.setAttribute('aria-label', currentGame.paused ? 'Continuar jogo' : 'Pausar jogo'); }

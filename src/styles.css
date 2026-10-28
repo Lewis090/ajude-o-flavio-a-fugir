@@ -82,12 +82,15 @@ canvas { display: block; width: 100%; height: auto; aspect-ratio: 480 / 760; bac
 .difficulty-list button:hover, .difficulty-list button:focus-visible { background: #2a4c7a; border-color: #ffd23f; outline: none; }
 .difficulty-list small { display: block; color: #b6c8df; font-size: .72rem; font-weight: 400; margin-top: 2px; }
 .difficulty-list .recommended { border-color: #ffd23f; }
+.ranking-button { justify-self: center; border: 1px solid #d5a928; border-radius: 999px; padding: 9px 18px; color: #fff; background: #5b4314; cursor: pointer; font: 800 .9rem system-ui, sans-serif; }
+.ranking-button:hover, .ranking-button:focus-visible { background: #80601b; outline: 2px solid #ffd23f; outline-offset: 2px; }
 .message-panel[hidden] { display: none; }
 .message-panel button { border: 0; border-radius: 8px; padding: 12px 18px; background: #ffd23f; color: #111827; cursor: pointer; font-weight: 800; }
 .rank-form { display: grid; gap: 8px; justify-items: center; }
 .rank-form label { color: #b6c8df; font-size: .82rem; }
 .rank-form input { width: 92px; border: 2px solid #62b5ff; border-radius: 8px; padding: 8px; color: #fff; background: #0d1d38; font: 800 1.25rem system-ui; letter-spacing: .22em; text-align: center; text-transform: uppercase; }
 .rank-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.rank-table caption { padding: 3px; color: #ffd23f; font-weight: 800; }
 .rank-table th, .rank-table td { padding: 3px 6px; border-bottom: 1px solid #ffffff22; }
 .rank-table th { color: #ffd23f; text-align: left; }
 .rank-table th:last-child, .rank-table td:last-child { text-align: right; }

@@ -32,7 +32,7 @@ As fases agora têm progressão longa, com 15.000 unidades cada. O cenário muda
 
 ## 🏆 Score e ranking
 
-O score combina distância percorrida, passaportes coletados e bônus de conclusão de fase. Ao vencer ou sofrer game over, o jogador informa três letras e salva sua pontuação entre as cinco melhores do navegador. O ranking usa `localStorage`, portanto é individual para cada navegador e dispositivo.
+O score combina distância percorrida, passaportes coletados e bônus de conclusão de fase. Ao vencer ou sofrer game over, o jogador informa três letras e salva sua pontuação entre as dez melhores do navegador. O botão 🏆 no menu inicial abre o ranking a qualquer momento. O ranking usa `localStorage`, portanto é individual para cada navegador e dispositivo.
 
 ## 📁 Estrutura
 
